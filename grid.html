@@ -1,0 +1,136 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<title>Grid Generator</title>
+		
+		<script type="text/javascript">
+		
+			function $id(id){
+				return document.getElementById(id);
+			}
+			
+			function drawGrid(context, startX, startY, width, mGrid){
+				function drawGridLine(mLineGrid){
+					for(var i = 0; i < mLineGrid.length; i++){
+						context.fillStyle = mLineGrid[i];
+    					context.fillRect(startX + (i * width), startY, startX + width, startY + width);
+    				}
+				}
+				
+				if(mGrid){
+					if(typeof mGrid[0] === "string"){
+						drawGridLine(mGrid);
+					}else if(typeof mGrid[0] === "object"){
+						for(var j = 0; j < mGrid.length; j++){
+							drawGridLine(mGrid[j]);
+							startY += width;
+						}
+					}
+				}
+				
+			}
+			
+			function generateImage(width, height, mGrid, gridWidth){
+				var canvas = document.createElement("canvas");
+				canvas.width = width;
+				canvas.height = height;
+				var context = canvas.getContext("2d");
+				var baseWidth = gridWidth ? gridWidth : 1;
+				var offsetX, offsetY;
+				
+				if(mGrid){
+					if(typeof mGrid[0] === 'string'){
+						offsetX = mGrid.length * baseWidth;
+						offsetY = 1 * baseWidth;
+					}else if(typeof mGrid[0] === 'object'){
+						offsetX = mGrid[0].length * baseWidth;
+						offsetY = mGrid.length * baseWidth;
+					}
+				}else{
+					alert("meta grid is not set");
+				}
+
+				var bufferCanvas = document.createElement("canvas");
+				var bufferWidth = width;
+				var bufferHeight = offsetY;
+				bufferCanvas.width = bufferWidth
+				bufferCanvas.height = bufferHeight;
+				var bufferContext = bufferCanvas.getContext("2d");
+				
+				for (var bw = 0; bw < width; bw += offsetX) {
+					drawGrid(bufferContext, bw, 0, baseWidth, mGrid);
+				}
+
+				for (var h = 0; h < height; h += offsetY) {
+					context.drawImage(bufferCanvas, 0, h);
+				}
+				
+				
+				//alert(offsetX + ", " + offsetY);
+				/*
+				for(var h = 0; h < height; h += offsetY){
+					for(var w = 0; w < width; w += offsetX){
+						drawGrid(context, w, h, baseWidth, mGrid);
+					}
+				}
+				*/
+				
+				//alert('done');
+				
+				var dataURL = canvas.toDataURL();
+	      		$id("image").src = dataURL;
+			}
+		
+			onload = function(){
+				$id("genBtn").addEventListener("click", function(){
+					var width = Number($id("width").value);
+					var height = Number($id("height").value);
+					//alert(width + ", " + height);
+					try{
+						var metaGrid = JSON.parse($id("metagrid").value);
+						
+						//var metaGrid = [["#FF00FF", "#00FFFF"],["#00FF00", "#FF0000"]];
+					}catch(e){
+						alert("your input is not correct");
+					}
+					//alert(metaGrid);
+					
+					//["#FF0000", "#00FF00", "#0000FF"]
+					//[
+					// ["#FF00FF", "#00FF00"],
+					// ["#00F0FF", "#00FFFF"]
+					//]
+					var gridw = Number($id("gridWidth").value);
+					//alert(gridw);
+				
+					generateImage(width, height, metaGrid, isNaN(gridw) ? void 0 : gridw);
+				});
+			}
+		</script>
+	</head>
+	
+	<body>
+	
+		<fieldset>
+			<legend>Parameters</legend>
+			<label for="width">Width</label>
+			<input type="text" id="width" width="100px" value="1080" />
+			<label for="height">Height</label>
+			<input type="text" id="height" width="100px" value="2340" />
+			<label for="gridWidth">Grid Width</label>
+			<input type="text" id="gridWidth" width="100px" value="1" />
+			<p>
+				<label for="metagrid">Meta Grid</label>
+				<textarea id="metagrid" rows="5" cols="80">[["#FF00FF", "#00FF00"],["#00FF00", "#FF00FF"]]</textarea>
+			</p>
+			
+			<p><button id="genBtn">Generate</button></p>
+		</fieldset>
+		
+		<img id="image"></img>
+		
+		
+		
+	</body>
+</html>
