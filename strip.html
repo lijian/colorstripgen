@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <title>GradientGenerator</title>
+
+    <script type="text/javascript">
+    	
+    	//var width = 1024;
+    	//var height = 2340;
+    	
+    	//var stripWidth;
+    	
+    	var colorList = ["#FFFFFF", "#FFFF00", "#FF00FF", "#FF0000", "#00FFFF", "#00FF00", "#0000FF", "#FFFFFF" ];
+    	
+    	function generateStrip(context, startX, startY, stopX, stopY, startColor, stopColor) {
+    		var grd = context.createLinearGradient(startX, 0, startX, stopY);
+    		grd.addColorStop(0, startColor);
+    		grd.addColorStop(1, stopColor);
+    		
+    		context.fillStyle = grd;
+    		context.fillRect(startX, startY, stopX, stopY);
+    	}
+    	
+    	function generateImage(width, height) {
+	    	var canvas = document.createElement("canvas");
+			canvas.width = width;
+			canvas.height = height;
+			var context = canvas.getContext("2d");
+			
+			var startX, startY, stopX, stopY;
+			var stripWidth = width / colorList.length;
+			//var stripWidth = 80;
+			for(var i = 0; i < colorList.length; i++) {
+				startX = i * stripWidth;
+				startY = 0;
+				stopX = startX + stripWidth;
+				stopY = height;
+				generateStrip(context, startX, startY, stopX, stopY, "#000000", colorList[i]);
+				//alert("startX = " + startX + ", stopX = " + stopX + ", startY = " + startY + ", stopY = " + stopY);
+    	
+    			var dataURL = canvas.toDataURL();
+	      		document.getElementById("image").src = dataURL;
+	      	}	
+    	}
+    
+    	onload = function() {
+		//var canvas = document.getElementById("mycanvas");
+			document.getElementById('genBtn').addEventListener("click", function(){
+				var widthText = Number(document.getElementById('width').value);
+				var heightText = Number(document.getElementById('height').value);
+				if(!isNaN(widthText) && !isNaN(heightText)){
+					generateImage(widthText, heightText);
+				}
+			});
+		
+		};
+		
+
+//     context.rect(0, 0, 20, 200);
+
+/*
+      var grd = context.createLinearGradient(20, 0, 20, 200);
+
+      grd.addColorStop(0, "#000000");
+      grd.addColorStop(1, "#FF0000");
+
+      context.fillStyle = grd;
+      context.fillRect(0, 0, 80, height);
+*/
+
+/*
+      
+    //  context.rect(21, 0, 20, 200);
+      var grd2 = context.createLinearGradient(31, 0, 10, height);
+      grd2.addColorStop(0, "#000000");
+      grd2.addColorStop(1, "#00FF00");
+
+      context.fillStyle = grd2;
+      context.fillRect(20, 0, 100, height);
+      
+    */  
+      
+      
+      //document.getElementById("image").style.width = width + "px";
+      //document.getElementById("image").style.height = height + "px";
+
+
+      //}
+    </script>
+
+    <style>
+      body {
+      margin: 0px;
+      padding: 0px;
+      }
+    </style>
+  </head>
+
+
+  <body>
+    <header>Color Strip Generator</header>
+    
+    <fieldset>
+    	<legend>Parameters</legend>
+        <label for="width">Width</label>
+        <input type="text" width="100px" id="width" />
+        <label for="height">Height</label>
+        <input type="text" width="100px" id="height" />
+    	<button id="genBtn">Generate</button>
+    </fieldset>
+    
+	<img id="image"></img>
+
+    <!--canvas id="mycanvas" width="1024" height="2340"></canvas-->
+
+  </body>
+
+  </html>
