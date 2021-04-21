@@ -22,9 +22,9 @@
                 <div class="p-lr20 border-t">
                   <div class="ipt-wrap border-b flex ai-center">
                     <label for="width">宽度</label>
-                    <input type="text" class="ml10 flex1" v-model="deviceScreenSize.width" id="width"></input>
+                    <input type="text" class="ml10 flex1" v-model="deviceScreenSize.width"></input>
                     <label for="height" class="ml40">高度</label>
-                    <input type="text" class="ml10 flex1" v-model="deviceScreenSize.height" id="height"></input>
+                    <input type="text" class="ml10 flex1" v-model="deviceScreenSize.height"></input>
                   </div>
                   <div class="ipt-wrap ai-center flex-horizontal-center">
                     <button class="button" @click="previewStripImage">预览</button>
@@ -50,17 +50,17 @@
                 <div class="p-lr10 border-t">
                     <div class="ipt-wrap border-b flex ai-center">
                         <label for="width">宽度</label>
-                        <input type="text" class="ml10 flex1" :value="deviceScreenSize.width" id="width" @click="getWidthValue"></input>
+                        <input type="text" class="ml10 flex1" v-model="deviceScreenSize.width"></input>
                         <label for="height" class="ml40">高度</label>
-                        <input type="text" class="ml10 flex1" :value="deviceScreenSize.height" id="height"></input>
+                        <input type="text" class="ml10 flex1" v-model="deviceScreenSize.height"></input>
                     </div>
                     <div class="ipt-wrap border-b flex ai-center">
                         <label for="gridWidth">单元格宽度</label>
-                        <input type="text" class="ml40 flex1" value="1" id="gridWidth"></input>
+                        <input type="text" class="ml40 flex1" v-model="gridWidth"></input>
                     </div>
                     <div class="ipt-wrap border-b flex ai-center">
                         <label for="colorGrid">色彩</label>
-                        <textarea class="textarea lh15 mtb20" id="colorGrid" value='[["#FF00FF","#00FF00"], ["#00FF00","#FF00FF"]]' @click="getColorGridValue"></textarea>
+                        <textarea class="textarea lh15 mtb20" v-model="mGrid"></textarea>
                     </div>
                 
                     <div class="ipt-wrap ai-center flex-horizontal-center">

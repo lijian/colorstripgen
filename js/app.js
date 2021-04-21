@@ -12,7 +12,7 @@ const ImagenApp = {
             stripImageDataUrl: "",
             gridImageDataUrl: "",
             gridWidth: 1,
-
+            mGrid: '[["#FF00FF","#00FF00"], ["#00FF00","#FF00FF"]]'
         }
     },
 
@@ -115,7 +115,7 @@ const ImagenApp = {
             var canvas = document.createElement("canvas");
             var width = this.deviceScreenSize.width;
             var height = this.deviceScreenSize.height;
-            var gridWidth = 1; //TODO
+            var gridWidth = this.gridWidth;
 
             canvas.width = width;
             canvas.height = height;
@@ -124,7 +124,9 @@ const ImagenApp = {
             var baseWidth = gridWidth ? gridWidth : 1;
             var offsetX, offsetY;
 
-            var mGrid = [["#FF00FF","#00FF00"], ["#00FF00","#FF00FF"]]; //TODO
+            //var mGrid = [["#FF00FF","#00FF00"], ["#00FF00","#FF00FF"]]; //TODO
+            var mGrid = JSON.parse(this.mGrid);
+            //console.log(typeof mGrid)
             
             if(mGrid){
                 if(typeof mGrid[0] === 'string'){
