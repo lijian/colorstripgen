@@ -1,0 +1,119 @@
+/**app.wxss**/
+.app-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+  
+.container {
+    height: 100%; 
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column; 
+    box-sizing: border-box;
+    background: #f5f5f5;
+    overflow-x:hidden;
+}
+
+.hide {
+  display: none
+}
+  
+  .flex{
+    display: flex;
+  }
+  
+  .ai-center{
+    align-items: center;
+  }
+  
+  .ipt-wrap{
+    min-height: 60px;
+    line-height: 60px;
+  }
+  
+  .ipt-wrap label{
+    min-width: 36px;
+  }
+
+  .ipt-wrap input{
+    min-width: 36px;
+    max-width: 42px;
+  }
+  
+  div, text {
+    font-size: 13px;
+  }
+  
+  .textarea{
+    width: 290px;
+    height: 128px;
+  }
+  .lh15{line-height: 1.5;}
+  
+  .flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .flex-vertical-center{
+    display: flex;
+    align-items: center;
+  }
+  
+  .flex-horizontal-center{
+    display: flex;
+    justify-content: center;
+  }
+
+  .flex-horizontal-center button{
+    margin: 0 10px 0 10px;
+  }
+  
+  
+.flex1{flex:1;}
+.p-lr10{padding: 0 10px;}
+
+.p-lr20{padding: 0 20px;}
+
+.ml40{margin-left: 40px;}
+.ml10{margin-left: 10px;}
+.mtb20{margin: 20px 0 20px 0;}
+
+.no-b-l{border-left: none;}
+.no-b-r{border-right: none;}
+.no-b-t{border-top: none;}
+.no-b-b{border-bottom: none;}
+.border-t{border-top:1px solid #e4e4e4;}
+.border-b{border-bottom:1px solid #e4e4e4;}
+.border-r{border-right:1px solid #e4e4e4;}
+.border-l{border-left:1px solid #e4e4e4;}
+.border-tb{border-bottom:1px solid #e4e4e4; border-top:1px solid #e4e4e4;}
+.border-rl{border-right:1px solid #e4e4e4; border-left:1px solid #e4e4e4;}
+.border-all{border:1px solid #e4e4e4;}
+
+.nav-container {
+  margin-top: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+nav {
+  margin: auto;
+}
+
+.nav-icon {
+  width: 128px;
+  height: 128px;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.title {
+  margin-top: 200px;
+}

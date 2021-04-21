@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Imagen</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
+        <script src="https://unpkg.com/vue@next"></script>
+        <link rel="stylesheet" href="css/app.css" />
+        
+    </head>
+    <body> 
+        <div id="app-container">
+            <div class="nav-container" v-if="!isStripOn && !isGridOn">
+                <nav>
+                    <img src="image/strip.png" @click="gotoStripGen" class="nav-icon" />
+                    <img src="image/grid.png" @click="gotoGridGen" class="nav-icon" />
+                </nav>
+            </div>
+
+            <div class="container" v-if="isStripOn">
+                <div class="p-lr20 border-t">
+                  <div class="ipt-wrap border-b flex ai-center">
+                    <label for="width">宽度</label>
+                    <input type="text" class="ml10 flex1" v-model="deviceScreenSize.width" id="width"></input>
+                    <label for="height" class="ml40">高度</label>
+                    <input type="text" class="ml10 flex1" v-model="deviceScreenSize.height" id="height"></input>
+                  </div>
+                  <div class="ipt-wrap ai-center flex-horizontal-center">
+                    <button>预览</button>
+                    <button disabled="true">保存</button>
+                    <button @click="backToHome">返回</button>
+                  </div>
+                </div>
+
+                <div class="p-lr20 flex-horizontal-center">
+                  <canvas id="offCanvas" type="2d" style="width:200px;height:200px"></canvas>
+                </div>              
+            </div>
+
+            <div class="container" v-if="isGridOn">
+                <div class="p-lr10 border-t">
+                    <div class="ipt-wrap border-b flex ai-center">
+                        <label for="width">宽度</label>
+                        <input type="text" class="ml10 flex1" :value="deviceScreenSize.width" id="width" @click="getWidthValue"></input>
+                        <label for="height" class="ml40">高度</label>
+                        <input type="text" class="ml10 flex1" :value="deviceScreenSize.height" id="height"></input>
+                    </div>
+                    <div class="ipt-wrap border-b flex ai-center">
+                        <label for="gridWidth">单元格宽度</label>
+                        <input type="text" class="ml40 flex1" value="1" id="gridWidth"></input>
+                    </div>
+                    <div class="ipt-wrap border-b flex ai-center">
+                        <label for="colorGrid">色彩</label>
+                        <textarea class="textarea lh15 mtb20" id="colorGrid" value='[["#FF00FF","#00FF00"], ["#00FF00","#FF00FF"]]' @click="getColorGridValue"></textarea>
+                    </div>
+                
+                    <div class="ipt-wrap ai-center flex-horizontal-center">
+                        <button @click="generatePreview">预览</button>
+                        <button @click="savePreview" disabled="{{!saveButtonEnabled}}">保存</button>
+                        <button @click="backToHome">返回</button>
+                    </div>
+                </div>
+
+                <div class="p-lr20 flex-horizontal-center">
+                    <canvas id="offCanvas2" type="2d" style="width:200px;height:200px"></canvas>
+                </div>   
+            </div>
+
+        </div>
+    </body>
+    <script src="js/app.js" type="text/javascript"></script>
+</html>
