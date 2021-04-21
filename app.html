@@ -27,14 +27,17 @@
                     <input type="text" class="ml10 flex1" v-model="deviceScreenSize.height" id="height"></input>
                   </div>
                   <div class="ipt-wrap ai-center flex-horizontal-center">
-                    <button>预览</button>
+                    <button @click="previewStripImage">预览</button>
                     <button disabled="true">保存</button>
                     <button @click="backToHome">返回</button>
                   </div>
                 </div>
 
                 <div class="p-lr20 flex-horizontal-center">
-                  <canvas id="offCanvas" type="2d" style="width:200px;height:200px"></canvas>
+                    <img id="stripImagePreview" style="width:200px;height:200px" />
+                    <!--
+                    <canvas id="stripImageCanvasBuffer" type="2d" style="width:200px;height:200px"></canvas>
+                    -->
                 </div>              
             </div>
 
@@ -56,14 +59,15 @@
                     </div>
                 
                     <div class="ipt-wrap ai-center flex-horizontal-center">
-                        <button @click="generatePreview">预览</button>
+                        <button @click="previewGridImage">预览</button>
                         <button @click="savePreview" disabled="{{!saveButtonEnabled}}">保存</button>
                         <button @click="backToHome">返回</button>
                     </div>
                 </div>
 
                 <div class="p-lr20 flex-horizontal-center">
-                    <canvas id="offCanvas2" type="2d" style="width:200px;height:200px"></canvas>
+                    <img id="gridImagePreview" style="width:200px;height:200px" />
+                    <!--<canvas id="offCanvas2" type="2d" style="width:200px;height:200px"></canvas>-->
                 </div>   
             </div>
 
