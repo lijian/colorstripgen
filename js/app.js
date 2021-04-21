@@ -8,7 +8,11 @@ const ImagenApp = {
             deviceScreenSize: {
                 width: window.screen.width * window.devicePixelRatio,             
                 height: window.screen.height * window.devicePixelRatio
-            }
+            },
+            stripImageDataUrl: "",
+            gridImageDataUrl: "",
+            gridWidth: 1,
+
         }
     },
 
@@ -17,19 +21,23 @@ const ImagenApp = {
     },
 
     computed: {
+        stripImageAvailable() {
+            return this.stripImageDataUrl ? true : false;
+        },
+        gridImageAvailable() {
+            return this.gridImageDataUrl ? true : false;
+        }
     },
 
     methods: {
         gotoStripGen() {
             this.isStripOn = true;
             this.isGridOn = false;
-            //console.log('goto strip');
         },
 
         gotoGridGen() {
             this.isStripOn = false;
             this.isGridOn = true;
-            //console.log('goto grid');
         },
 
         backToHome() {
@@ -65,16 +73,23 @@ const ImagenApp = {
 				stopX = startX + stripWidth;
 				stopY = height;
 				generateStrip(context, startX, startY, stopX, stopY, "#000000", colorList[i]);
-				//alert("startX = " + startX + ", stopX = " + stopX + ", startY = " + startY + ", stopY = " + stopY);
     	
     			var dataURL = canvas.toDataURL();
-	      		document.getElementById("stripImagePreview").src = dataURL;
-                console.log(dataURL);
+                this.stripImageDataUrl = dataURL;
             }
 
         },
         downloadStripImage() {
-            console.log('not done yet');
+            //console.log('not done yet');
+            if(!this.stripImageDataUrl) {
+                return;
+            }
+
+            var atag = document.createElement("a");
+            atag.href = this.stripImageDataUrl;
+            var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
+            atag.download = "stripImage_" + timetail + ".png";
+            atag.click();
         },
         previewGridImage(){
             function drawGridLine(context, startX, startY, width, mLineGrid){
@@ -139,10 +154,20 @@ const ImagenApp = {
             }
 
             var dataURL = canvas.toDataURL();
-	      	document.getElementById("gridImagePreview").src = dataURL;
-            console.log(dataURL);
+            this.gridImageDataUrl = dataURL;
+        },
+        downloadGridImage() {
+            if(!this.gridImageDataUrl) {
+                return;
+            }
 
+            var atag = document.createElement("a");
+            var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
+            atag.href = this.gridImageDataUrl;            
+            atag.download = "gridImage_" + timetail + ".png";
+            atag.click();
         }
+
 
     }
 };
