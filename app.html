@@ -5,7 +5,7 @@
         <title>Imagen</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
-        <script src="https://unpkg.com/vue@next"></script>
+        <script src="js/vue.js?v=3.0.11" type="text/javascript"></script>
         <link rel="stylesheet" href="css/app.css" />
         
     </head>
@@ -37,9 +37,10 @@
 
                 <div class="p-lr20 flex-horizontal-center" v-if="stripImageDataUrl">
                     <a :download="stripImageDownloadName" :href="stripImageDataUrl" v-if="stripImageAvailable">
-                        <img id="stripImagePreview" :src="stripImageDataUrl" :style="{width: previewWidth + 'px', height: previewHeight + 'px'}" />
+                        <img id="stripImagePreview" :src="stripImageDataUrl" style="width:200px" />
                     </a>
                     <!--
+                        {width: previewWidth + 'px', height: previewHeight + 'px'}
                     <canvas id="stripImageCanvasBuffer" type="2d" style="width:200px;height:200px"></canvas>
                     -->
                 </div>              
@@ -73,12 +74,12 @@
 
                 <div class="p-lr20 flex-horizontal-center" v-if="gridImageDataUrl">
                     <a :download="gridImageDownloadName" :href="gridImageDataUrl" v-if="gridImageAvailable">
-                        <img id="gridImagePreview" :src="gridImageDataUrl" :style="{width: previewWidth + 'px', height: previewHeight + 'px'}" />
+                        <img id="gridImagePreview" :src="gridImageDataUrl" style="width:200px" />
                     </a>
                 </div>   
             </div>
 
         </div>
     </body>
-    <script src="js/app.js" type="text/javascript"></script>
+    <script src="js/app.js?v=1.0" type="text/javascript"></script>
 </html>
