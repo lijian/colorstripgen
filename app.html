@@ -37,7 +37,7 @@
 
                 <div class="p-lr20 flex-horizontal-center" v-if="stripImageDataUrl">
                     <a :download="stripImageDownloadName" :href="stripImageDataUrl" v-if="stripImageAvailable">
-                        <img id="stripImagePreview" :src="stripImageDataUrl" style="width:280px" />
+                        <img id="stripImagePreview" :src="stripImageDataUrl" :style="{width: previewWidth + 'px', height: previewHeight + 'px'}" />
                     </a>
                     <!--
                     <canvas id="stripImageCanvasBuffer" type="2d" style="width:200px;height:200px"></canvas>
@@ -73,7 +73,7 @@
 
                 <div class="p-lr20 flex-horizontal-center" v-if="gridImageDataUrl">
                     <a :download="gridImageDownloadName" :href="gridImageDataUrl" v-if="gridImageAvailable">
-                        <img id="gridImagePreview" :src="gridImageDataUrl" style="width:280px" />
+                        <img id="gridImagePreview" :src="gridImageDataUrl" :style="{width: previewWidth + 'px', height: previewHeight + 'px'}" />
                     </a>
                 </div>   
             </div>

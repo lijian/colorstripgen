@@ -77,12 +77,14 @@ const ImagenApp = {
 				stopX = startX + stripWidth;
 				stopY = height;
 				generateStrip(context, startX, startY, stopX, stopY, "#000000", colorList[i]);
-    	
-    			var dataURL = canvas.toDataURL();
-                this.stripImageDataUrl = dataURL;
-                var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
-                this.stripImageDownloadName = "stripImage_" + timetail + ".png";
             }
+
+            var dataURL = canvas.toDataURL();
+            this.stripImageDataUrl = dataURL;
+            var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
+            this.stripImageDownloadName = "stripImage_" + timetail + ".png";
+            this.previewWidth = 200;
+            this.previewHeight = Math.round(200 * height / width);
 
         },
         downloadStripImage() {
@@ -165,6 +167,8 @@ const ImagenApp = {
             this.gridImageDataUrl = dataURL;
             var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
             this.gridImageDownloadName = "gridImage_" + timetail + ".png";
+            this.previewWidth = 200;
+            this.previewHeight = Math.round(200 * height / width);
         },
         downloadGridImage() {
             if(!this.gridImageDataUrl) {
