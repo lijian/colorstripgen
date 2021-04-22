@@ -9,10 +9,12 @@ const ImagenApp = {
                 width: window.screen.width * window.devicePixelRatio,             
                 height: window.screen.height * window.devicePixelRatio
             },
-            stripImageDataUrl: "",
-            gridImageDataUrl: "",
+            stripImageDataUrl: void 0,
+            gridImageDataUrl: void 0,
             gridWidth: 1,
-            mGrid: '[["#FF00FF","#00FF00"], ["#00FF00","#FF00FF"]]'
+            mGrid: '[["#FF00FF","#00FF00"], ["#00FF00","#FF00FF"]]',
+            previewWidth: 200,
+            previewHeight: 0
         }
     },
 
