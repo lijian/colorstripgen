@@ -15,7 +15,7 @@
     </head>
     <body> 
         <div id="app-container">
-            <div class="nav-container" v-if="!isStripOn && !isGridOn">
+            <div class="nav-container" v-if="!isStripOn && !isGridOn" @dblclick="gotoFullScreen">
                 <nav>
                     <img src="image/strip.png" @click="gotoStripGen" class="nav-icon" />
                     <img src="image/grid.png" @click="gotoGridGen" class="nav-icon" />
@@ -37,8 +37,10 @@
                     -->                    
                     <button class="button" @click="backToHome">返回</button>
                   </div>
+                
                 </div>
 
+                <div class="p-lr20 flex-horizontal-center" v-if="stripImageDataUrl">点击/长按图片下载</div>
                 <div class="p-lr20 flex-horizontal-center" v-if="stripImageDataUrl">
                     <a :download="stripImageDownloadName" :href="stripImageDataUrl" v-if="stripImageAvailable">
                         <img id="stripImagePreview" :src="stripImageDataUrl" style="width:200px" />
@@ -76,6 +78,7 @@
                     </div>
                 </div>
 
+                <div class="p-lr20 flex-horizontal-center" v-if="gridImageDataUrl">点击/长按图片下载</div>
                 <div class="p-lr20 flex-horizontal-center" v-if="gridImageDataUrl">
                     <a :download="gridImageDownloadName" :href="gridImageDataUrl" v-if="gridImageAvailable">
                         <img id="gridImagePreview" :src="gridImageDataUrl" style="width:200px" />
@@ -85,5 +88,5 @@
 
         </div>
     </body>
-    <script src="js/app.js?v=1.1" type="text/javascript"></script>
+    <script src="js/app.js?v=1.3" type="text/javascript"></script>
 </html>

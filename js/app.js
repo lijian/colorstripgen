@@ -180,6 +180,16 @@ const ImagenApp = {
             atag.href = this.gridImageDataUrl;            
             atag.download = "gridImage_" + timetail + ".png";
             atag.click();
+        },
+        gotoFullScreen() {
+            //console.log("fullscreen")
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }            
         }
 
 
@@ -188,13 +198,3 @@ const ImagenApp = {
 
 Vue.createApp(ImagenApp).mount('#app-container')
 
-
-if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-} 
-/*else {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    }
-}
-*/
