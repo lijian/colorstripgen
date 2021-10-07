@@ -167,15 +167,15 @@ const ImagenApp = {
                 }
 				generateHStrip(context, startX, startY, stopX, stopY, "#000000", colorList[i]);
 				//console.log("startX = " + startX + ", stopX = " + stopX + ", startY = " + startY + ", stopY = " + stopY);
-    	
-    			var dataURL = canvas.toDataURL();
-	      		//document.getElementById("image").src = dataURL;
-                this.hStripImageDataUrl = dataURL;
-                var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
-                this.hStripImageDownloadName = "hStripImage_" + timetail + ".png";
-                this.previewWidth = 200;
-                this.previewHeight = Math.round(200 * height / width);
-	      	}	
+	      	}
+
+            var dataURL = canvas.toDataURL();
+            //document.getElementById("image").src = dataURL;
+            this.hStripImageDataUrl = dataURL;
+            var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
+            this.hStripImageDownloadName = "hStripImage_" + timetail + ".png";
+            this.previewWidth = 200;
+            this.previewHeight = Math.round(200 * height / width);
         },
         downloadHStripImage() {
             //console.log('not done yet');
