@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <title>GradientGenerator</title>
+
+    <script type="text/javascript">
+    	
+    	var colorList = [ "#FFFFFF", "#FF0000", "#00FF00", "#0000FF"];
+    	
+    	function generateHStrip(context, startX, startY, stopX, stopY, startColor, stopColor) {
+    		var grd = context.createLinearGradient(startX, startY, 0, stopY);
+    		grd.addColorStop(0, startColor);
+    		grd.addColorStop(1, stopColor);
+    		
+    		context.fillStyle = grd;
+    		context.fillRect(startX, startY, stopX, stopY);
+    	}
+    	
+    	function generateImage(width, height) {
+	    	var canvas = document.createElement("canvas");
+			canvas.width = width;
+			canvas.height = height;
+			var context = canvas.getContext("2d");
+			
+			var startX, startY, stopX, stopY;
+			//var stripWidth = width / colorList.length;
+            //var stripWidth = width;
+            var stripHeight = height / colorList.length;
+			//var stripWidth = 80;
+			for(var i = 0; i < colorList.length; i++) {
+				startX = 0;
+				startY = i * stripHeight;
+				//stopX = startX + stripWidth;
+                stopX = width
+				//stopY = height;
+                stopY = startY + stripHeight;
+				generateHStrip(context, startX, startY, stopX, stopY, "#000000", colorList[i]);
+				console.log("startX = " + startX + ", stopX = " + stopX + ", startY = " + startY + ", stopY = " + stopY);
+    	
+    			var dataURL = canvas.toDataURL();
+	      		document.getElementById("image").src = dataURL;
+	      	}	
+    	}
+    
+    	onload = function() {
+		//var canvas = document.getElementById("mycanvas");
+			document.getElementById('genBtn').addEventListener("click", function(){
+				var widthText = Number(document.getElementById('width').value);
+				var heightText = Number(document.getElementById('height').value);
+				if(!isNaN(widthText) && !isNaN(heightText)){
+					generateImage(widthText, heightText);
+				}
+			});
+		
+		};
+    </script>
+
+    <style>
+      body {
+      margin: 0px;
+      padding: 0px;
+      }
+    </style>
+  </head>
+
+
+  <body>
+    <header>Color Strip Generator</header>
+    
+    <fieldset>
+    	<legend>Parameters</legend>
+        <label for="width">Width</label>
+        <input type="text" width="100px" id="width" value="768" />
+        <label for="height">Height</label>
+        <input type="text" width="100px" id="height" value="1024"/>
+        <label for="colorsOption">RGBW</label>
+        <input type="checkbox" value="3" id="colorsOption" />
+    	<button id="genBtn">Generate</button>
+        
+    </fieldset>
+    
+	<img id="image"></img>
+
+  </body>
+
+  </html>

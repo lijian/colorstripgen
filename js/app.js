@@ -4,15 +4,23 @@ const ImagenApp = {
         return {
             isStripOn: false,
             isGridOn: false,
+            isHStripOn: false,
             defaultScreenSize: {width: 1080, height: 2340},
             deviceScreenSize: {
-                width: window.screen.width * window.devicePixelRatio,             
-                height: window.screen.height * window.devicePixelRatio
+                //width: window.screen.width * window.devicePixelRatio,             
+                //height: window.screen.height * window.devicePixelRatio
+                width: 1080,
+                height: 2340
+            },
+            hstripOptions: {
+                wrgb: false
             },
             stripImageDataUrl: void 0,
             stripImageDownloadName: void 0,
             gridImageDataUrl: void 0,
             gridImageDownloadName: void 0,
+            hStripImageDataUrl: void 0,
+            hStripImageDownloadName: void 0,
             gridWidth: 1,
             mGrid: '[["#FF00FF","#00FF00"], ["#00FF00","#FF00FF"]]',
             previewWidth: 200,
@@ -30,6 +38,9 @@ const ImagenApp = {
         },
         gridImageAvailable() {
             return this.gridImageDataUrl ? true : false;
+        },
+        hStripImageAvailable() {
+            return this.hStripImageDataUrl ? true : false;
         }
     },
 
@@ -37,16 +48,23 @@ const ImagenApp = {
         gotoStripGen() {
             this.isStripOn = true;
             this.isGridOn = false;
+            this.isHStripOn = false;
         },
 
         gotoGridGen() {
             this.isStripOn = false;
             this.isGridOn = true;
+            this.isHStripOn = false;
         },
-
+        gotoHStripGen() {
+            this.isGridOn = false;
+            this.isStripOn = false;
+            this.isHStripOn = true;
+        },
         backToHome() {
             this.isStripOn = false;
             this.isGridOn = false;
+            this.isHStripOn = false;
         },
 
         previewStripImage() {
@@ -97,6 +115,78 @@ const ImagenApp = {
             atag.href = this.stripImageDataUrl;
             var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
             atag.download = "stripImage_" + timetail + ".png";
+            atag.click();
+        },
+        switchWRGBOption() {
+            //console.log(this.hstripOptions);
+            if(this.hStripImageAvailable) {
+                this.previewHStripImage();
+            }
+        },
+        previewHStripImage(){
+            var colorList = [ "#FF0000", "#00FF00", "#0000FF"];
+
+            if(this.hstripOptions.wrgb){
+                colorList.unshift("#FFFFFF");
+            }
+            //console.log(colorList);
+    	
+            function generateHStrip(context, startX, startY, stopX, stopY, startColor, stopColor) {
+                var grd = context.createLinearGradient(startX, startY, 0, stopY);
+                grd.addColorStop(0, startColor);
+                grd.addColorStop(1, stopColor);
+                
+                context.fillStyle = grd;
+                context.fillRect(startX, startY, stopX, stopY);
+            }
+
+            var canvas = document.createElement("canvas");
+            var width = this.deviceScreenSize.width;
+            var height = this.deviceScreenSize.height;
+			canvas.width = this.deviceScreenSize.width;
+			canvas.height = this.deviceScreenSize.height;
+			var context = canvas.getContext("2d");
+
+            //console.log(this.hstripOptions);
+			
+			var startX, startY, stopX, stopY;
+			//var stripWidth = width / colorList.length;
+            //var stripWidth = width;
+            var stripHeight = Math.round(height / colorList.length);
+			//var stripWidth = 80;
+			for(var i = 0; i < colorList.length; i++) {
+				startX = 0;
+				startY = i * stripHeight;
+				//stopX = startX + stripWidth;
+                stopX = width;
+				//stopY = height;
+                if(i < colorList.length - 1) {
+                    stopY = startY + stripHeight;
+                } else {
+                    stopY = height;
+                }
+				generateHStrip(context, startX, startY, stopX, stopY, "#000000", colorList[i]);
+				//console.log("startX = " + startX + ", stopX = " + stopX + ", startY = " + startY + ", stopY = " + stopY);
+    	
+    			var dataURL = canvas.toDataURL();
+	      		//document.getElementById("image").src = dataURL;
+                this.hStripImageDataUrl = dataURL;
+                var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
+                this.hStripImageDownloadName = "hStripImage_" + timetail + ".png";
+                this.previewWidth = 200;
+                this.previewHeight = Math.round(200 * height / width);
+	      	}	
+        },
+        downloadHStripImage() {
+            //console.log('not done yet');
+            if(!this.hStripImageDataUrl) {
+                return;
+            }
+
+            var atag = document.createElement("a");
+            atag.href = this.hStripImageDataUrl;
+            var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
+            atag.download = "hStripImage_" + timetail + ".png";
             atag.click();
         },
         previewGridImage(){
