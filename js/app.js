@@ -80,6 +80,7 @@ const ImagenApp = {
             this.isStripOn = false;
             this.isGridOn = false;
             this.isHStripOn = false;
+            this.isCenterGrayOn = false;
         },
 
         previewStripImage() {
