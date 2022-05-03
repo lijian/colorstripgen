@@ -291,6 +291,9 @@ const ImagenApp = {
             var centerX = width / 2;
             var centerY = height / 2;
 
+            context.imageSmoothingEnabled = true;
+            context.globalAlpha = 1;
+
             /*
             var r0 = 0, r1 = Math.sqrt(centerX * centerX + centerY * centerY);
             var gradient = context.createRadialGradient(centerX, centerY, r0, width, 0, r1);
@@ -316,14 +319,19 @@ const ImagenApp = {
             grdRight.addColorStop(0, '#FFFFFF');
             grdRight.addColorStop(1, '#000000');
 
+            /*
             var regionTop = new Path2D();
             regionTop.moveTo(0, 0);
+            //regionTop.moveTo(-2, 0);
             regionTop.lineTo(width, 0);
             regionTop.lineTo(centerX, centerY);
             regionTop.closePath();
             context.fillStyle = grdTop;
             context.fill(regionTop);
-
+            */
+            context.fillStyle = grdTop;
+            context.fillRect(0, 0, width, centerY);
+            /*
             var regionBottom = new Path2D();
             regionBottom.moveTo(centerX, centerY);
             regionBottom.lineTo(width, height);
@@ -331,6 +339,9 @@ const ImagenApp = {
             regionBottom.closePath();
             context.fillStyle = grdBottom;
             context.fill(regionBottom);
+            */
+           context.fillStyle = grdBottom;
+           context.fillRect(0, centerY, width, height);
 
             var regionLeft = new Path2D();
             regionLeft.moveTo(0, 0);
