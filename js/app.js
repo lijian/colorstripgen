@@ -5,6 +5,7 @@ const ImagenApp = {
             isStripOn: false,
             isGridOn: false,
             isHStripOn: false,
+            isCenterGrayOn: false,
             defaultScreenSize: {width: 1080, height: 2340},
             deviceScreenSize: {
                 //width: window.screen.width * window.devicePixelRatio,             
@@ -21,6 +22,8 @@ const ImagenApp = {
             gridImageDownloadName: void 0,
             hStripImageDataUrl: void 0,
             hStripImageDownloadName: void 0,
+            centerGrayImageDataUrl : void 0,
+            centerGrayImageDownloadName: void 0,
             gridWidth: 1,
             mGrid: '[["#FF00FF","#00FF00"], ["#00FF00","#FF00FF"]]',
             previewWidth: 200,
@@ -41,6 +44,9 @@ const ImagenApp = {
         },
         hStripImageAvailable() {
             return this.hStripImageDataUrl ? true : false;
+        },
+        centerGrayImageAvailable() {
+            return this.centerGrayImageDataUrl ? true : false;
         }
     },
 
@@ -49,17 +55,26 @@ const ImagenApp = {
             this.isStripOn = true;
             this.isGridOn = false;
             this.isHStripOn = false;
+            this.isCenterGrayOn = false;
         },
 
         gotoGridGen() {
             this.isStripOn = false;
             this.isGridOn = true;
             this.isHStripOn = false;
+            this.isCenterGrayOn = false;
         },
         gotoHStripGen() {
             this.isGridOn = false;
             this.isStripOn = false;
             this.isHStripOn = true;
+            this.isCenterGrayOn = false;
+        },
+        gotoCenterGrayGen() {
+            this.isGridOn = false;
+            this.isStripOn = false;
+            this.isHStripOn = false;
+            this.isCenterGrayOn = true;
         },
         backToHome() {
             this.isStripOn = false;
@@ -259,6 +274,88 @@ const ImagenApp = {
             this.gridImageDownloadName = "gridImage_" + timetail + ".png";
             this.previewWidth = 200;
             this.previewHeight = Math.round(200 * height / width);
+        },
+        previewCenterGrayImage () {
+            console.log("preview center gray image");
+
+            var canvas = document.createElement("canvas");
+            var width = this.deviceScreenSize.width;
+            var height = this.deviceScreenSize.height;
+            //var gridWidth = this.gridWidth;
+
+            canvas.width = width;
+            canvas.height = height;
+
+            var context = canvas.getContext("2d");
+            var centerX = width / 2;
+            var centerY = height / 2;
+
+            /*
+            var r0 = 0, r1 = Math.sqrt(centerX * centerX + centerY * centerY);
+            var gradient = context.createRadialGradient(centerX, centerY, r0, width, 0, r1);
+            gradient.addColorStop(0, '#FFFFFF');
+            gradient.addColorStop(1, '#000000');
+            context.fillStyle = gradient;
+            context.fillRect(centerX, 0, width, centerY);
+            */
+
+            var grdTop = context.createLinearGradient(centerX, centerY, centerX, 0);
+            grdTop.addColorStop(0, '#FFFFFF');
+            grdTop.addColorStop(1, '#000000');
+
+            var grdBottom = context.createLinearGradient(centerX, centerY, centerX, height);
+            grdBottom.addColorStop(0, '#FFFFFF');
+            grdBottom.addColorStop(1, '#000000');
+
+            var grdLeft = context.createLinearGradient(centerX, centerY, 0, centerY);
+            grdLeft.addColorStop(0, '#FFFFFF');
+            grdLeft.addColorStop(1, '#000000');
+
+            var grdRight = context.createLinearGradient(centerX, centerY, width, centerY);
+            grdRight.addColorStop(0, '#FFFFFF');
+            grdRight.addColorStop(1, '#000000');
+
+            var regionTop = new Path2D();
+            regionTop.moveTo(0, 0);
+            regionTop.lineTo(width, 0);
+            regionTop.lineTo(centerX, centerY);
+            regionTop.closePath();
+            context.fillStyle = grdTop;
+            context.fill(regionTop);
+
+            var regionBottom = new Path2D();
+            regionBottom.moveTo(centerX, centerY);
+            regionBottom.lineTo(width, height);
+            regionBottom.lineTo(0, height);
+            regionBottom.closePath();
+            context.fillStyle = grdBottom;
+            context.fill(regionBottom);
+
+            var regionLeft = new Path2D();
+            regionLeft.moveTo(0, 0);
+            regionLeft.lineTo(centerX, centerY);
+            regionLeft.lineTo(0, height);
+            regionLeft.closePath();
+            context.fillStyle = grdLeft;
+            context.fill(regionLeft);
+
+            var regionRight = new Path2D();
+            regionRight.moveTo(width, 0);
+            regionRight.lineTo(width, height);
+            regionRight.lineTo(centerX, centerY);
+            regionRight.closePath();
+            context.fillStyle = grdRight;
+            context.fill(regionRight)
+
+
+
+            var dataURL = canvas.toDataURL();
+            this.centerGrayImageDataUrl = dataURL;
+            var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
+            this.centerGrayImageDownloadName = "centerGrayImage_" + timetail + ".png";
+            this.previewWidth = 200;
+            this.previewHeight = Math.round(200 * height / width);
+
         },
         downloadGridImage() {
             if(!this.gridImageDataUrl) {

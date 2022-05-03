@@ -10,16 +10,19 @@
         <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
+        <!--
         <link rel="manifest" href="image/site.webmanifest">
+        -->
         
     </head>
     <body> 
         <div id="app-container">
-            <div class="nav-container" v-if="!isStripOn && !isGridOn && !isHStripOn" @dblclick="gotoFullScreen">
+            <div class="nav-container" v-if="!isStripOn && !isGridOn && !isHStripOn && !isCenterGrayOn" @dblclick="gotoFullScreen">
                 <nav>
                     <img src="image/strip.png" @click="gotoStripGen" class="nav-icon" />
                     <img src="image/grid.png" @click="gotoGridGen" class="nav-icon" />
-                    <img src="image/hstrip.png" @click="gotoHStripGen" class="nav-icon" />        
+                    <img src="image/hstrip.png" @click="gotoHStripGen" class="nav-icon" />
+                    <img src="image/centergray.png" @click="gotoCenterGrayGen" class="nav-icon" />         
                 </nav>
             </div>
 
@@ -110,6 +113,28 @@
                     </a>
                 </div> 
             </div>
+
+            <div class="container" v-if="isCenterGrayOn">
+                <div class="p-lr20 border-t">
+                   <div class="ipt-wrap border-b flex ai-center flex-horizontal-center">
+                     <label for="width">宽度</label>
+                     <input type="text" class="ml10 flex1" v-model="deviceScreenSize.width"></input>
+                     <label for="height" class="ml40">高度</label>
+                     <input type="text" class="ml10 flex1" v-model="deviceScreenSize.height"></input>
+                   </div>
+                   <div class="ipt-wrap ai-center flex-horizontal-center">
+                     <button class="button" @click="previewCenterGrayImage">预览</button>                   
+                     <button class="button" @click="backToHome">返回</button>
+                   </div>
+                 </div>
+ 
+                 <div class="p-lr20 flex-horizontal-center" v-if="centerGrayImageDataUrl">点击/长按图片下载</div>
+                 <div class="p-lr20 flex-horizontal-center" v-if="centerGrayImageDataUrl">
+                     <a :download="centerGrayImageDownloadName" :href="centerGrayImageDataUrl" v-if="centerGrayImageAvailable">
+                         <img id="centerGrayImagePreview" :src="centerGrayImageDataUrl" style="width:200px" />
+                     </a>
+                 </div> 
+             </div>
 
         </div>
     </body>
