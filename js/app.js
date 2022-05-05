@@ -14,7 +14,7 @@ const ImagenApp = {
                 height: 2340
             },
             hstripOptions: {
-                wrgb: false
+                wrgb: true
             },
             stripImageDataUrl: void 0,
             stripImageDownloadName: void 0,
@@ -195,7 +195,7 @@ const ImagenApp = {
             } else {
                 this.hStripImageDownloadName = "hStripImage_WRGB_" + timetail + ".png";
             }
-            
+
             this.previewWidth = 200;
             this.previewHeight = Math.round(200 * height / width);
         },
