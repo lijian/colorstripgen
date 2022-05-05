@@ -189,7 +189,13 @@ const ImagenApp = {
             //document.getElementById("image").src = dataURL;
             this.hStripImageDataUrl = dataURL;
             var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
-            this.hStripImageDownloadName = "hStripImage_" + timetail + ".png";
+
+            if(!this.hstripOptions.wrgb) {
+                this.hStripImageDownloadName = "hStripImage_" + timetail + ".png";
+            } else {
+                this.hStripImageDownloadName = "hStripImage_WRGB_" + timetail + ".png";
+            }
+            
             this.previewWidth = 200;
             this.previewHeight = Math.round(200 * height / width);
         },
@@ -364,7 +370,7 @@ const ImagenApp = {
             var dataURL = canvas.toDataURL();
             this.centerGrayImageDataUrl = dataURL;
             var timetail = new Date().toLocaleDateString().replaceAll("/", "-");
-            this.centerGrayImageDownloadName = "centerGrayImage_" + timetail + ".png";
+            this.centerGrayImageDownloadName = "CenterGray_gradule_" + timetail + ".png";
             this.previewWidth = 200;
             this.previewHeight = Math.round(200 * height / width);
 
